@@ -2,6 +2,9 @@
 
 Unity mini experiments series: third person camera and controller.
 
+Live demo:
+https://gcadeado.github.io/unity-third-person-experiments/
+
 ## Experiments
 
 - Cinemachine Free Look Camera

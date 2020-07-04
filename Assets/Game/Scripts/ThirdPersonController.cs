@@ -39,7 +39,7 @@ namespace Game
             float v = Input.GetAxis("Vertical");
 
 
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButton("Fire1") || Input.GetButton("Fire3"))
             {
                 speed = Mathf.SmoothStep(speed, runSpeed, runSmooth);
                 controller.radius = 0.55f;
@@ -63,8 +63,6 @@ namespace Game
                 controller.Move(moveDir.normalized * clampedDir.magnitude * Time.deltaTime);
             }
             animator.SetFloat("Speed", clampedDir.magnitude / runSpeed);
-
-            Debug.Log("Velocity: " + clampedDir.magnitude);
         }
     }
 }

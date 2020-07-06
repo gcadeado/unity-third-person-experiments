@@ -25,6 +25,14 @@ namespace Game
 
         [SerializeField]
         [ReadOnly]
+        private bool inputEnabled = true;
+
+        [SerializeField]
+        [ReadOnly]
+        private float h, v;
+
+        [SerializeField]
+        [ReadOnly]
         /* As long as cooldown is not equal to 0, player movements are disabled.*/
         private int cooldownCount = 0;
 
@@ -51,18 +59,26 @@ namespace Game
         {
             if (HasCooldown) return;
 
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
+            if (inputEnabled)
+            {
+                h = Input.GetAxis("Horizontal");
+                v = Input.GetAxis("Vertical");
+            }
+            else
+            {
+                h = Mathf.SmoothStep(h, 0.0f, runSmooth);
+                v = Mathf.SmoothStep(v, 0.0f, runSmooth);
+            }
 
             Vector3 direction = new Vector3(h * speed, 0f, v * speed);
             Vector3 clampedDir = Vector3.ClampMagnitude(direction, speed); // We don't want to move faster in diagonal directions
-            if (Input.GetButtonDown("Fire2") || Input.GetButtonDown("Jump")) // Roll
+            if (inputEnabled && Input.GetButtonDown("Fire2") || Input.GetButtonDown("Jump")) // Roll
             {
                 controller.radius = 0.5f;
                 animator.SetTrigger("Rolling");
                 AddCooldown(rollCooldown);
             }
-            else if (Input.GetButton("Fire1") || Input.GetButton("Fire3")) // Run
+            else if (inputEnabled && Input.GetButton("Fire1") || Input.GetButton("Fire3")) // Run
             {
                 speed = Mathf.SmoothStep(speed, runSpeed, runSmooth);
                 controller.radius = 0.55f;
@@ -84,6 +100,16 @@ namespace Game
             }
             animator.SetFloat("Speed", clampedDir.magnitude / runSpeed);
         }
+        public void Enable()
+        {
+            this.inputEnabled = true;
+        }
+
+        public void Disable()
+        {
+            this.inputEnabled = false;
+        }
+
         public void AddCooldown(float duration)
         {
             StartCoroutine(_AddCooldown(duration));

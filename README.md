@@ -8,6 +8,9 @@ https://gcadeado.github.io/unity-third-person-experiments/
 ## Experiments
 
 - Cinemachine Free Look Camera
+- Cinemachine Colliders
+- Cinemachine Virtual Camera with dolly tracks
+- Cinemachine Timeline
 - Character Controller
 - Custom Character Script
 - Blending Tree animations

@@ -3,6 +3,7 @@ Temp/
 Obj/
 Logs/
 Assets/AssetStoreTools*
+web_gl/
 
 # Visual Studio 2015 cache directory
 /.vs/
